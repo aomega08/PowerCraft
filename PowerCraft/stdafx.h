@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #define GLEW_STATIC
 #include <Gl/glew.h>
