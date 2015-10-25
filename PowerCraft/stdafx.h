@@ -10,3 +10,4 @@
 #include <stdlib.h>
 #include <memory.h>
 
+#include <GLFW/glfw3.h>
