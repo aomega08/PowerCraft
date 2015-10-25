@@ -9,8 +9,7 @@
 
 #include <stdlib.h>
 #include <memory.h>
-
+#include <iostream>
 
 #include <Gl/glew.h>
 #include <GLFW/glfw3.h>
-
