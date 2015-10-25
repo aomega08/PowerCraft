@@ -16,5 +16,7 @@
 #define GLEW_STATIC
 #include <Gl/glew.h>
 #include <GLFW/glfw3.h>
-#include <GL/GLU.h>
 
+#ifdef WIN32
+#include <GL/GLU.h>
+#endif
