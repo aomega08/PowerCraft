@@ -42,18 +42,19 @@ int main() {
 
 	
 	float vertices[] = {
-		0.0f, 0.0f,
-		0.0f, 0.5f,
-		0.5f, 0.5f,
-		0.5f, 0.5f,
-		0.5f, 0.0f,
-		0.0f, 0.0f
+		0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		-0.25f, 0.25f,
+		0.25f, -0.25f,
+		0.25f, 0.25f,
+		-0.25f, 0.25f,
+		-0.25f, -0.25f,
+		0.25f, -0.25f
 	};
 
 	VertexBufferObject vbo;
 	
 	vbo.Bind();
-	vbo.Upload(vertices, sizeof(vertices), GL_STREAM_DRAW);
+	vbo.Upload(vertices, sizeof(vertices), GL_STATIC_DRAW);
 
 	VertexShader vshader("Shaders/shader.vert");
 	FragmentShader fshader("Shaders/shader.frag");
@@ -66,9 +67,36 @@ int main() {
 	program.Link();
 
 	program.Use();
-	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE);
+	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 0, 0);
+	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE, 0, 12 * sizeof(GL_FLOAT));
+
+	int tw, th;
+	unsigned char* image = SOIL_load_image("dirt.png", &tw, &th, 0, SOIL_LOAD_RGB);
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tw, th, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glUniform1i(glGetUniformLocation(program._id, "ourTexture"), 0);
 
 	while (!glfwWindowShouldClose(window)) {
+		/*glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glUniform1i(glGetUniformLocation(program._id, "ourTexture"), 0);*/
+
 		glClear(GL_COLOR_BUFFER_BIT);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glFinish();

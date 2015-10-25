@@ -33,6 +33,7 @@ void ShaderProgram::Use() {
 
 void ShaderProgram::SetupAttribute(std::string attribute, int count, int type, int normalized, int stride, int offset) {
 	GLint pos = glGetAttribLocation(_id, attribute.c_str());
-	glVertexAttribPointer(pos, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	const void *offPtr = (const void *) offset;
+	glVertexAttribPointer(pos, 2, GL_FLOAT, GL_FALSE, stride, offPtr);
 	glEnableVertexAttribArray(pos);
 }

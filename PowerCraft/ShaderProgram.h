@@ -16,7 +16,6 @@ public:
 
   void SetupAttribute(std::string attribute, int count, int type, int normalized, int stride = 0, int offset = 0);
 
-private:
   GLuint _id;
   VertexArrayObject _vao;
 };
