@@ -30,5 +30,5 @@ Texture::~Texture() {
 
 void Texture::Bind(int unit) {
   glActiveTexture(unit);
-	glBindTexture(GL_TEXTURE_2D, _id);
+  glBindTexture(GL_TEXTURE_2D, _id);
 }

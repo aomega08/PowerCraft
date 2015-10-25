@@ -4,6 +4,7 @@
 #include "VertexShader.h"
 #include "ShaderProgram.h"
 #include "VertexArrayObject.h"
+#include "Texture.h"
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
@@ -42,12 +43,12 @@ int main() {
 
 
 	float vertices[] = {
-		-0.25f, 0.25f, 0.0f, 0.0f,
-		0.25f, -0.25f, 1.0f, 1.0f,
-		0.25f, 0.25f, 1.0f, 0.0f,
-		-0.25f, 0.25f, 0.0f, 0.0f,
-		-0.25f, -0.25f, 0.0f, 1.0f,
-		0.25f, -0.25f, 1.0f, 1.0f,
+		-0.25f, 0.25f,   0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
+		0.25f, -0.25f,   1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
+		0.25f, 0.25f,    1.0f, 0.0f,  0.0f, 0.0f, 1.0f,
+		-0.25f, 0.25f,   0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
+		-0.25f, -0.25f,  0.0f, 1.0f,  1.0f, 1.0f, 1.0f,
+		0.25f, -0.25f,   1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
 	};
 
 	VertexBufferObject vbo;
@@ -55,47 +56,32 @@ int main() {
 	vbo.Bind();
 	vbo.Upload(vertices, sizeof(vertices), GL_STATIC_DRAW);
 
-	VertexShader vshader("Shaders/shader.vert");
-	FragmentShader fshader("Shaders/shader.frag");
-	vshader.Compile();
-	fshader.Compile();
-
 	ShaderProgram program;
-	program.Attach(vshader);
-	program.Attach(fshader);
-	program.Link();
+
+	try {
+		VertexShader vshader("Shaders/shader.vert");
+		FragmentShader fshader("Shaders/shader.frag");
+		vshader.Compile();
+		fshader.Compile();
+
+		program.Attach(vshader);
+		program.Attach(fshader);
+		program.Link();
+	} catch (std::string exc) {
+		std::cerr << exc << std::endl;
+		return -1;
+	}
 
 	program.Use();
-	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 2 * sizeof(float));
-	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), 0);
+	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), 2 * sizeof(float));
+	program.SetupAttribute("color", 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), 4 * sizeof(float));
 
-	int tw, th;
-	unsigned char* image = SOIL_load_image("dirt.png", &tw, &th, 0, SOIL_LOAD_RGB);
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tw, th, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	Texture dirt("dirt.png", GL_RGBA);
+	dirt.Bind(GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(program._id, "ourTexture"), 0);
 
 	while (!glfwWindowShouldClose(window)) {
-		/*glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glUniform1i(glGetUniformLocation(program._id, "ourTexture"), 0);*/
-
 		glClear(GL_COLOR_BUFFER_BIT);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glFinish();
