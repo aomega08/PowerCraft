@@ -23,6 +23,13 @@ int main() {
 
 	glfwMakeContextCurrent(window);
 
+	glewExperimental = GL_TRUE;
+	GLenum err = glewInit();
+	if (err != GLEW_OK) {
+	  std::cout << "Failed GLEW initialization" << std::endl;
+		return -1;
+	}
+
 	glfwSwapInterval(1);
 
 	glfwGetFramebufferSize(window, &width, &height);
