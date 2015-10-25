@@ -10,6 +10,10 @@ Shader::~Shader() {
 
 void Shader::Compile() {
   std::ifstream file(_path);
+  if (file.fail()) {
+    throw std::string("Unable to read shader file: ") + _path;
+  }
+
   std::string source;
 
   file.seekg(0, std::ios::end);
