@@ -1,30 +1,40 @@
 #include "stdafx.h"
 
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+	glViewport(0, 0, width, height);
+}
+
 int main() {
-  glfwInit();
+	int width, height;
+	glfwInit();
 
-  GLFWwindow *window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-  glfwMakeContextCurrent(window);
+	GLFWwindow *window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-  glfwSwapInterval(1);
-  int width, height;
-  glfwGetFramebufferSize(window, &width, &height);
-  glViewport(0, 0, width, height);
+	glfwMakeContextCurrent(window);
 
-  while (!glfwWindowShouldClose(window)) {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-  }
+	glfwSwapInterval(1);
 
-  glfwDestroyWindow(window);
-  glfwTerminate();
+	glfwGetFramebufferSize(window, &width, &height);
+	glViewport(0, 0, width, height);
+
+	while (!glfwWindowShouldClose(window)) {
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glFinish();
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	glfwDestroyWindow(window);
+	glfwTerminate();
 
 	return 0;
 }
 
+
 #ifdef WIN32
-int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)	{
+int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
 	return main();
 }
 #endif
