@@ -26,7 +26,7 @@ int main() {
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
-	  std::cout << "Failed GLEW initialization" << std::endl;
+		std::cout << "Failed GLEW initialization" << std::endl;
 		return -1;
 	}
 

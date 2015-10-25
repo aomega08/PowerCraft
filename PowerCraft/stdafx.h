@@ -11,5 +11,6 @@
 #include <memory.h>
 #include <iostream>
 
+#define GLEW_STATIC
 #include <Gl/glew.h>
 #include <GLFW/glfw3.h>
