@@ -4,11 +4,21 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
+void SetupHints() {
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+}
+
 int main() {
 	int width, height;
 	glfwInit();
+	SetupHints();
 
-	GLFWwindow *window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(640, 480, "PowerCraft", NULL, NULL);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	glfwMakeContextCurrent(window);
