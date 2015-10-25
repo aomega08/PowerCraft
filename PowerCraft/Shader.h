@@ -3,6 +3,8 @@
 #include "stdafx.h"
 
 class Shader {
+  friend class ShaderProgram;
+
 public:
   Shader(std::string path);
   ~Shader();
