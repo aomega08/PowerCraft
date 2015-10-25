@@ -3,17 +3,17 @@
 #include "stdafx.h"
 
 class Shader {
-  friend class ShaderProgram;
+	friend class ShaderProgram;
 
 public:
-  Shader(std::string path);
-  ~Shader();
+	Shader(std::string path);
+	~Shader();
 
-  void Compile();
+	void Compile();
 
 protected:
-  GLuint _id;
+	GLuint _id;
 
 private:
-  std::string _path;
+	std::string _path;
 };
