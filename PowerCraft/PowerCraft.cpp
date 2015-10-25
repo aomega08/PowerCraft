@@ -5,7 +5,7 @@ int main() {
 }
 
 #ifdef WIN32
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)	{
+int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)	{
 	return main();
 }
 #endif
