@@ -40,19 +40,18 @@ int main() {
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 
-	
+
 	float vertices[] = {
-		0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-		-0.25f, 0.25f,
-		0.25f, -0.25f,
-		0.25f, 0.25f,
-		-0.25f, 0.25f,
-		-0.25f, -0.25f,
-		0.25f, -0.25f
+		-0.25f, 0.25f, 0.0f, 0.0f,
+		0.25f, -0.25f, 1.0f, 1.0f,
+		0.25f, 0.25f, 1.0f, 0.0f,
+		-0.25f, 0.25f, 0.0f, 0.0f,
+		-0.25f, -0.25f, 0.0f, 1.0f,
+		0.25f, -0.25f, 1.0f, 1.0f,
 	};
 
 	VertexBufferObject vbo;
-	
+
 	vbo.Bind();
 	vbo.Upload(vertices, sizeof(vertices), GL_STATIC_DRAW);
 
@@ -60,15 +59,15 @@ int main() {
 	FragmentShader fshader("Shaders/shader.frag");
 	vshader.Compile();
 	fshader.Compile();
-	
+
 	ShaderProgram program;
 	program.Attach(vshader);
 	program.Attach(fshader);
 	program.Link();
 
 	program.Use();
-	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 0, 0);
-	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE, 0, 12 * sizeof(GL_FLOAT));
+	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 2 * sizeof(float));
+	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
 
 	int tw, th;
 	unsigned char* image = SOIL_load_image("dirt.png", &tw, &th, 0, SOIL_LOAD_RGB);
@@ -84,7 +83,7 @@ int main() {
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tw, th, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	
+
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
