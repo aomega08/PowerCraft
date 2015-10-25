@@ -22,6 +22,8 @@ int main() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	glfwMakeContextCurrent(window);
+
+	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
 	  std::cout << "Failed GLEW initialization" << std::endl;
