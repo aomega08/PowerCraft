@@ -6,7 +6,7 @@ INCLUDES := $(TOOLCHAIN)/includes
 LIBS := $(TOOLCHAIN)/lib
 
 CXXFLAGS := -include-pch stdafx.h.pch -I$(INCLUDES) -Wall -c
-LINKFLAGS := -L$(LIBS) -lglfw3
+LINKFLAGS := -L$(LIBS) -lglfw3 -lGLEW
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
