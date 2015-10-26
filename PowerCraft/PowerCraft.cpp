@@ -43,47 +43,47 @@ int main() {
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
 
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
 		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-     0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
 
-     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
 
-    -0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 0.0f
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
 	};
 
 	VertexBufferObject vbo;
@@ -134,11 +134,11 @@ int main() {
 	double startTime = glfwGetTime();
 	double lastTime = startTime;
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 
-	float cameraX = 0.0f;
+	float cameraX = 1.63f;
 	float cameraY = 0.0f;
-	float cameraZ = 3.0f;
+	float cameraZ = 2.0f;
 	while (!glfwWindowShouldClose(window)) {
 		frames++;
 		double currentTime = glfwGetTime();
@@ -156,15 +156,40 @@ int main() {
 		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
 
 		glm::vec3 cubePositions[] = {
+			glm::vec3(-1.0f, 0.0f, -1.0f),
+			glm::vec3(-1.0f, 1.0f, -1.0f),
+			glm::vec3(-1.0f, 2.0f, -1.0f),
+			glm::vec3(0.0f, 0.0f, -1.0f),
+			glm::vec3(0.0f, 1.0f, -1.0f),
+			glm::vec3(0.0f, 2.0f, -1.0f),
+			glm::vec3(1.0f, 0.0f, -1.0f),
+			glm::vec3(1.0f, 1.0f, -1.0f),
+			glm::vec3(1.0f, 2.0f, -1.0f),
+
+			glm::vec3(-1.0f, 0.0f, 0.0f),
+			glm::vec3(-1.0f, 1.0f, 0.0f),
+			glm::vec3(-1.0f, 2.0f, 0.0f),
 			glm::vec3(0.0f, 0.0f, 0.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
+			glm::vec3(0.0f, 2.0f, 0.0f),
+			glm::vec3(1.0f, 0.0f, 0.0f),
 			glm::vec3(1.0f, 1.0f, 0.0f),
-			glm::vec3(-1.0f, 1.0f, 0.0f),
+			glm::vec3(1.0f, 2.0f, 0.0f),
+
+			glm::vec3(-1.0f, 0.0f, 1.0f),
+			glm::vec3(-1.0f, 1.0f, 1.0f),
+			glm::vec3(-1.0f, 2.0f, 1.0f),
+			glm::vec3(0.0f, 0.0f, 1.0f),
+			glm::vec3(0.0f, 1.0f, 1.0f),
+			glm::vec3(0.0f, 2.0f, 1.0f),
+			glm::vec3(1.0f, 0.0f, 1.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f),
+			glm::vec3(1.0f, 2.0f, 1.0f),
 		};
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		for (GLuint i = 0; i < 4; i++) {
+		for (GLuint i = 0; i < 27; i++) {
 			glm::mat4 model = glm::translate(glm::mat4(), cubePositions[i]);
 			glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -205,15 +230,15 @@ int main() {
 			cameraY -= 0.03;
 		}
 
-		if (cameraX < -2.0f)
-			cameraX = -2.0f;
-		if (cameraX > 2.0f)
-			cameraX = 2.0f;
+		if (cameraX < -4.0f)
+			cameraX = -4.0f;
+		if (cameraX > 4.0f)
+			cameraX = 4.0f;
 
-		if (cameraZ < -4.0f)
-			cameraZ = -4.0f;
-		if (cameraZ > 4.0f)
-			cameraZ = 4.0f;
+		if (cameraZ < -6.0f)
+			cameraZ = -6.0f;
+		if (cameraZ > 6.0f)
+			cameraZ = 6.0f;
 
 		view = glm::lookAt(
 			glm::vec3(cameraX, cameraY + 1.85f, cameraZ),
