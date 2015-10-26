@@ -37,3 +37,7 @@ void ShaderProgram::SetupAttribute(std::string attribute, int count, int type, i
 	glVertexAttribPointer(pos, 2, GL_FLOAT, GL_FALSE, stride, offPtr);
 	glEnableVertexAttribArray(pos);
 }
+
+int ShaderProgram::GetUniformId(std::string name) {
+  return glGetUniformLocation(_id, name.c_str());
+}
