@@ -43,12 +43,48 @@ int main() {
 
 
 	float vertices[] = {
-		-0.25f, 0.25f, 0.0f,  0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
-		0.25f, -0.25f, 0.0f,  1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
-		0.25f, 0.25f, 0.0f,   1.0f, 0.0f,  0.0f, 0.0f, 1.0f,
-		-0.25f, 0.25f, 0.0f,  0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
-		-0.25f, -0.25f, 0.0f, 0.0f, 1.0f,  1.0f, 1.0f, 1.0f,
-		0.25f, -0.25f, 0.0f,  1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+
+    -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+     0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 0.0f
 	};
 
 	VertexBufferObject vbo;
@@ -73,9 +109,8 @@ int main() {
 	}
 
 	program.Use();
-	program.SetupAttribute("position", 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
-	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 3 * sizeof(float));
-	program.SetupAttribute("color", 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 5 * sizeof(float));
+	program.SetupAttribute("position", 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
+	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 3 * sizeof(float));
 
 	Texture dirt("dirt.png", GL_RGBA);
 	dirt.Bind(GL_TEXTURE0);
@@ -85,20 +120,21 @@ int main() {
 	GLint uniTrans = program.GetUniformId("trans");
 
 	glm::mat4 view = glm::lookAt(
-	    glm::vec3(1.2f, 1.2f, 1.2f),
+	    glm::vec3(0.0f, 1.5f, 3.2f),
 	    glm::vec3(0.0f, 0.0f, 0.0f),
-	    glm::vec3(0.0f, 0.0f, 1.0f)
+	    glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 	GLint uniView = program.GetUniformId("view");
 	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-	glm::mat4 proj = glm::perspective(glm::radians(30.0f), 640.0f / 480.0f, 1.0f, 10.0f);
+	glm::mat4 proj = glm::perspective(glm::radians(45.0f), 640.0f / 480.0f, 0.2f, 100.0f);
 	GLint uniProj = program.GetUniformId("proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
 	int frames = 0;
 	double startTime = glfwGetTime();
 	double lastTime = startTime;
+	glEnable(GL_DEPTH_TEST);
 
 	while (!glfwWindowShouldClose(window)) {
 		frames++;
@@ -113,11 +149,11 @@ int main() {
 
 		// Calculate transformation
 		float time = currentTime - startTime;
-		trans = glm::rotate(glm::mat4(), time * glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		trans = glm::rotate(glm::mat4(), time * glm::radians(180.0f), glm::vec3(1.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
 
-		glClear(GL_COLOR_BUFFER_BIT);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glFinish();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
