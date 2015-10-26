@@ -27,22 +27,28 @@
     <ClInclude Include="PowerCraft.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="FragmentShader.h">
+    <ClInclude Include="Random.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="Engine\FragmentShader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderProgram.h">
+    <ClInclude Include="Engine\Shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBufferObject.h">
+    <ClInclude Include="Engine\ShaderProgram.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="VertexShader.h">
+    <ClInclude Include="Engine\Texture.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="VertexArrayObject.h">
+    <ClInclude Include="Engine\VertexArrayObject.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\VertexBufferObject.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\VertexShader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,22 +59,28 @@
     <ClCompile Include="PowerCraft.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="FragmentShader.cpp">
+    <ClCompile Include="Random.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="Engine\FragmentShader.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
+    <ClCompile Include="Engine\Shader.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBufferObject.cpp">
+    <ClCompile Include="Engine\ShaderProgram.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
+    <ClCompile Include="Engine\Texture.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="VertexArrayObject.cpp">
+    <ClCompile Include="Engine\VertexArrayObject.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\VertexBufferObject.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\VertexShader.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
