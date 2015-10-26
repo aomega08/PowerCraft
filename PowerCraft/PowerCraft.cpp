@@ -81,9 +81,6 @@ int main() {
 	dirt.Bind(GL_TEXTURE0);
 	glUniform1i(program.GetUniformId("ourTexture"), 0);
 
-	/* 180 deg rotation */
-	auto t_start = std::chrono::high_resolution_clock::now();
-
 	glm::mat4 trans;
 	GLint uniTrans = program.GetUniformId("trans");
 
@@ -99,11 +96,23 @@ int main() {
 	GLint uniProj = program.GetUniformId("proj");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
+	int frames = 0;
+	double startTime = glfwGetTime();
+	double lastTime = startTime;
 
 	while (!glfwWindowShouldClose(window)) {
+		frames++;
+		double currentTime = glfwGetTime();
+
+		// Every second print the FPS counter
+		if (currentTime - lastTime >= 1.0) {
+			std::cout << frames << " FPS" << std::endl;
+			frames = 0;
+			lastTime += 1.0;
+		}
+
 		// Calculate transformation
-		auto t_now = std::chrono::high_resolution_clock::now();
-		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
+		float time = currentTime - startTime;
 		trans = glm::rotate(glm::mat4(), time * glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
 
