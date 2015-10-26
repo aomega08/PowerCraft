@@ -43,12 +43,12 @@ int main() {
 
 
 	float vertices[] = {
-		-0.25f, 0.25f,   0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
-		0.25f, -0.25f,   1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
-		0.25f, 0.25f,    1.0f, 0.0f,  0.0f, 0.0f, 1.0f,
-		-0.25f, 0.25f,   0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
-		-0.25f, -0.25f,  0.0f, 1.0f,  1.0f, 1.0f, 1.0f,
-		0.25f, -0.25f,   1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
+		-0.25f, 0.25f, 0.0f,  0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
+		0.25f, -0.25f, 0.0f,  1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
+		0.25f, 0.25f, 0.0f,   1.0f, 0.0f,  0.0f, 0.0f, 1.0f,
+		-0.25f, 0.25f, 0.0f,  0.0f, 0.0f,  1.0f, 0.0f, 0.0f,
+		-0.25f, -0.25f, 0.0f, 0.0f, 1.0f,  1.0f, 1.0f, 1.0f,
+		0.25f, -0.25f, 0.0f,  1.0f, 1.0f,  0.0f, 1.0f, 0.0f,
 	};
 
 	VertexBufferObject vbo;
@@ -73,9 +73,9 @@ int main() {
 	}
 
 	program.Use();
-	program.SetupAttribute("position", 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), 0);
-	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), 2 * sizeof(float));
-	program.SetupAttribute("color", 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), 4 * sizeof(float));
+	program.SetupAttribute("position", 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+	program.SetupAttribute("texCoord", 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 3 * sizeof(float));
+	program.SetupAttribute("color", 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 5 * sizeof(float));
 
 	Texture dirt("dirt.png", GL_RGBA);
 	dirt.Bind(GL_TEXTURE0);

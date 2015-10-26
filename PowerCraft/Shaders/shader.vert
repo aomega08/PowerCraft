@@ -1,6 +1,6 @@
 #version 330
 
-in vec2 position;
+in vec3 position;
 in vec2 texCoord;
 in vec3 color;
 
@@ -12,7 +12,7 @@ uniform mat4 view;
 uniform mat4 proj;
 
 void main() {
-	gl_Position = proj * view * trans * vec4(position, 0.0, 1.0);
+	gl_Position = proj * view * trans * vec4(position, 1.0);
 	outTexCoord = texCoord;
 	Color = color;
 }
