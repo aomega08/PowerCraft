@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include <stdafx.h>
 #include "VertexShader.h"
 
 VertexShader::VertexShader(std::string path) : Shader(path) {

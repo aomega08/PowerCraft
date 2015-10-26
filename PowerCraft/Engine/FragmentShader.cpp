@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include <stdafx.h>
 #include "FragmentShader.h"
 
 FragmentShader::FragmentShader(std::string path) : Shader(path) {
