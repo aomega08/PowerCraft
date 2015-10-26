@@ -79,9 +79,34 @@ int main() {
 
 	Texture dirt("dirt.png", GL_RGBA);
 	dirt.Bind(GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(program._id, "ourTexture"), 0);
+	glUniform1i(program.GetUniformId("ourTexture"), 0);
+
+	/* 180 deg rotation */
+	auto t_start = std::chrono::high_resolution_clock::now();
+
+	glm::mat4 trans;
+	GLint uniTrans = program.GetUniformId("trans");
+
+	glm::mat4 view = glm::lookAt(
+	    glm::vec3(1.2f, 1.2f, 1.2f),
+	    glm::vec3(0.0f, 0.0f, 0.0f),
+	    glm::vec3(0.0f, 0.0f, 1.0f)
+	);
+	GLint uniView = program.GetUniformId("view");
+	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+
+	glm::mat4 proj = glm::perspective(glm::radians(30.0f), 640.0f / 480.0f, 1.0f, 10.0f);
+	GLint uniProj = program.GetUniformId("proj");
+	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+
 
 	while (!glfwWindowShouldClose(window)) {
+		// Calculate transformation
+		auto t_now = std::chrono::high_resolution_clock::now();
+		float time = std::chrono::duration_cast<std::chrono::duration<float>>(t_now - t_start).count();
+		trans = glm::rotate(glm::mat4(), time * glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
+
 		glClear(GL_COLOR_BUFFER_BIT);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glFinish();
