@@ -9,5 +9,4 @@ uniform sampler2D ourTexture;
 
 void main() {
 	outColor = texture(ourTexture, outTexCoord);
-	outColor.a = 0.1;
 }

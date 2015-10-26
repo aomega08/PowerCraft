@@ -14,5 +14,4 @@ uniform mat4 proj;
 void main() {
 	gl_Position = proj * view * trans * vec4(position, 1.0);
 	outTexCoord = texCoord;
-	Color = color;
 }
