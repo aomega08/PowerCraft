@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "VertexBufferObject.h"
-#include "FragmentShader.h"
-#include "VertexShader.h"
-#include "ShaderProgram.h"
-#include "VertexArrayObject.h"
-#include "Texture.h"
+#include "Engine/VertexBufferObject.h"
+#include "Engine/FragmentShader.h"
+#include "Engine/VertexShader.h"
+#include "Engine/ShaderProgram.h"
+#include "Engine/VertexArrayObject.h"
+#include "Engine/Texture.h"
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "Shader.h"
 
 Shader::Shader(std::string path) : _path(path) {

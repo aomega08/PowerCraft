@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "Texture.h"
 
 Texture::Texture(std::string _path, int type) {
