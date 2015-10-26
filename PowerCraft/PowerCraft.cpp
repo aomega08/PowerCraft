@@ -36,7 +36,7 @@ int main() {
 		return -1;
 	}
 
-	glfwSwapInterval(0);
+	glfwSwapInterval(1);
 
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
@@ -134,7 +134,11 @@ int main() {
 	double startTime = glfwGetTime();
 	double lastTime = startTime;
 	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_CULL_FACE);
 
+	float cameraX = 0.0f;
+	float cameraY = 0.0f;
+	float cameraZ = 3.0f;
 	while (!glfwWindowShouldClose(window)) {
 		frames++;
 		double currentTime = glfwGetTime();
@@ -154,15 +158,14 @@ int main() {
 		glm::vec3 cubePositions[] = {
 			glm::vec3(0.0f, 0.0f, 0.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
-			glm::vec3(0.0f, 2.0f, 0.0f),
+			glm::vec3(1.0f, 1.0f, 0.0f),
+			glm::vec3(-1.0f, 1.0f, 0.0f),
 		};
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		for (GLuint i = 0; i < 3; i++) {
-			glm::mat4 model;
-			model = glm::translate(model, cubePositions[i]);
-			GLfloat angle = 20.0f * i;
+		for (GLuint i = 0; i < 4; i++) {
+			glm::mat4 model = glm::translate(glm::mat4(), cubePositions[i]);
 			glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(model));
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -171,6 +174,53 @@ int main() {
 		glFinish();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		int state = glfwGetKey(window, GLFW_KEY_D);
+		if (state == GLFW_PRESS) {
+			cameraX += 0.03;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_A);
+		if (state == GLFW_PRESS) {
+			cameraX -= 0.03;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_S);
+		if (state == GLFW_PRESS) {
+			cameraZ += 0.03;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_W);
+		if (state == GLFW_PRESS) {
+			cameraZ -= 0.03;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_SPACE);
+		if (state == GLFW_PRESS) {
+			cameraY += 0.03;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT);
+		if (state == GLFW_PRESS) {
+			cameraY -= 0.03;
+		}
+
+		if (cameraX < -2.0f)
+			cameraX = -2.0f;
+		if (cameraX > 2.0f)
+			cameraX = 2.0f;
+
+		if (cameraZ < -4.0f)
+			cameraZ = -4.0f;
+		if (cameraZ > 4.0f)
+			cameraZ = 4.0f;
+
+		view = glm::lookAt(
+			glm::vec3(cameraX, cameraY + 1.85f, cameraZ),
+			glm::vec3(cameraX, cameraY + 1.85f, cameraZ - 3.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f)
+		);
+		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 	}
 
 	glfwDestroyWindow(window);
