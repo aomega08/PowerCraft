@@ -12,11 +12,11 @@ Random::Random(uint64_t seed) {
 }
 
 void Random::SetSeed(uint64_t seed) {
-  _seed = (seed ^ 0x5DEECE66DL) & ((1L << 48) - 1);
+  _seed = (seed ^ 0x5DEECE66DL) & ((1LL << 48) - 1);
 }
 
 uint32_t Random::Next(int bits) {
-  _seed = (_seed * 0x5DEECE66DL + 0xBL) & ((1L << 48) - 1);
+  _seed = (_seed * 0x5DEECE66DL + 0xBL) & ((1LL << 48) - 1);
   return (uint32_t)(_seed >> (48 - bits));
 }
 
@@ -56,10 +56,10 @@ bool Random::NextBoolean() {
 }
 
 float Random::NextFloat() {
-  return Next(24) / ((float)(1 << 24));
+  return Next(24) / ((float)(1L << 24));
 }
 
 double Random::NextDouble() {
-  return (((uint64_t)Next(26) << 27) + Next(27)) / (double)(1L << 53);
+  return (((uint64_t)Next(26) << 27) + Next(27)) / (double)(1LL << 53);
 }
 
