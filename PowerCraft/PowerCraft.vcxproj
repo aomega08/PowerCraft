@@ -152,6 +152,7 @@
     <ClInclude Include="Engine\VertexArrayObject.h" />
     <ClInclude Include="Engine\VertexBufferObject.h" />
     <ClInclude Include="Engine\VertexShader.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PowerCraft.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Resource.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Engine\VertexArrayObject.cpp" />
     <ClCompile Include="Engine\VertexBufferObject.cpp" />
     <ClCompile Include="Engine\VertexShader.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerCraft.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="stdafx.cpp">
