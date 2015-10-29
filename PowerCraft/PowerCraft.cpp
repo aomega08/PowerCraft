@@ -6,6 +6,8 @@
 #include "Engine/VertexArrayObject.h"
 #include "Engine/Texture.h"
 
+#include "Player.h"
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
@@ -40,6 +42,7 @@ int main() {
 
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
@@ -118,16 +121,14 @@ int main() {
 	glm::mat4 trans;
 	GLint uniTrans = program.GetUniformId("trans");
 
-	glm::mat4 view = glm::lookAt(
-		glm::vec3(0.0f, 1.85f, 3.0f),
-		glm::vec3(0.0f, 1.85f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f)
-	);
-	GLint uniView = program.GetUniformId("view");
-	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+	Player p;
+
+	float speed = 3.0f; // 3 units / second
+	float mouseSpeed = 0.13f;
 
 	glm::mat4 proj = glm::perspective(glm::radians(70.0f), 640.0f / 480.0f, 0.2f, 100.0f);
 	GLint uniProj = program.GetUniformId("proj");
+	GLint uniView = program.GetUniformId("view");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
 	int frames = 0;
@@ -136,12 +137,14 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	float cameraX = 1.63f;
-	float cameraY = 0.0f;
-	float cameraZ = 2.0f;
+	glm::vec3 position = glm::vec3(0, 1.63, 0);
+	double time2 = lastTime;
+
 	while (!glfwWindowShouldClose(window)) {
 		frames++;
 		double currentTime = glfwGetTime();
+		float deltaTime = currentTime - time2;
+		time2 = currentTime;
 
 		// Every second print the FPS counter
 		if (currentTime - lastTime >= 1.0) {
@@ -150,101 +153,57 @@ int main() {
 			lastTime += 1.0;
 		}
 
-		// Calculate transformation
-		float time = currentTime - startTime;
-		trans = glm::rotate(glm::mat4(), time * glm::radians(180.0f), glm::vec3(1.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
-
-		glm::vec3 cubePositions[] = {
-			glm::vec3(-1.0f, 0.0f, -1.0f),
-			glm::vec3(-1.0f, 1.0f, -1.0f),
-			glm::vec3(-1.0f, 2.0f, -1.0f),
-			glm::vec3(0.0f, 0.0f, -1.0f),
-			glm::vec3(0.0f, 1.0f, -1.0f),
-			glm::vec3(0.0f, 2.0f, -1.0f),
-			glm::vec3(1.0f, 0.0f, -1.0f),
-			glm::vec3(1.0f, 1.0f, -1.0f),
-			glm::vec3(1.0f, 2.0f, -1.0f),
-
-			glm::vec3(-1.0f, 0.0f, 0.0f),
-			glm::vec3(-1.0f, 1.0f, 0.0f),
-			glm::vec3(-1.0f, 2.0f, 0.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f),
-			glm::vec3(0.0f, 2.0f, 0.0f),
-			glm::vec3(1.0f, 0.0f, 0.0f),
-			glm::vec3(1.0f, 1.0f, 0.0f),
-			glm::vec3(1.0f, 2.0f, 0.0f),
-
-			glm::vec3(-1.0f, 0.0f, 1.0f),
-			glm::vec3(-1.0f, 1.0f, 1.0f),
-			glm::vec3(-1.0f, 2.0f, 1.0f),
-			glm::vec3(0.0f, 0.0f, 1.0f),
-			glm::vec3(0.0f, 1.0f, 1.0f),
-			glm::vec3(0.0f, 2.0f, 1.0f),
-			glm::vec3(1.0f, 0.0f, 1.0f),
-			glm::vec3(1.0f, 1.0f, 1.0f),
-			glm::vec3(1.0f, 2.0f, 1.0f),
-		};
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		for (GLuint i = 0; i < 27; i++) {
-			glm::mat4 model = glm::translate(glm::mat4(), cubePositions[i]);
-			glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(model));
+		for (float x = -1.0f; x < 1.01f; x += 1.0f) {
+			for (float y = -1.0f; y < 1.01f; y += 1.0f) {
+				for (float z = -1.0f; z < 1.01f; z += 1.0f) {
+					glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(x, y, z));
+					glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(model));
 
-			glDrawArrays(GL_TRIANGLES, 0, 36);
+					glDrawArrays(GL_TRIANGLES, 0, 36);
+				}
+			}
 		}
 
 		glFinish();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
-		int state = glfwGetKey(window, GLFW_KEY_D);
-		if (state == GLFW_PRESS) {
-			cameraX += 0.03;
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+		glfwSetCursorPos(window, 800 / 2, 600 / 2);
+
+		float d_alpha = mouseSpeed * deltaTime * float(800 / 2 - xpos);
+		float d_beta = mouseSpeed * deltaTime * float(600 / 2 - ypos);
+		p.UpdateAngles(d_alpha, d_beta);
+
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+			p.MoveForward(deltaTime * speed);
 		}
 
-		state = glfwGetKey(window, GLFW_KEY_A);
-		if (state == GLFW_PRESS) {
-			cameraX -= 0.03;
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+			p.MoveBackward(deltaTime * speed);
 		}
 
-		state = glfwGetKey(window, GLFW_KEY_S);
-		if (state == GLFW_PRESS) {
-			cameraZ += 0.03;
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+			p.MoveRight(deltaTime * speed);
 		}
 
-		state = glfwGetKey(window, GLFW_KEY_W);
-		if (state == GLFW_PRESS) {
-			cameraZ -= 0.03;
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+			p.MoveLeft(deltaTime * speed);
+		}
+		
+		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+			p.MoveUp(deltaTime * speed);
 		}
 
-		state = glfwGetKey(window, GLFW_KEY_SPACE);
-		if (state == GLFW_PRESS) {
-			cameraY += 0.03;
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			p.MoveDown(deltaTime * speed);
 		}
 
-		state = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT);
-		if (state == GLFW_PRESS) {
-			cameraY -= 0.03;
-		}
-
-		if (cameraX < -4.0f)
-			cameraX = -4.0f;
-		if (cameraX > 4.0f)
-			cameraX = 4.0f;
-
-		if (cameraZ < -6.0f)
-			cameraZ = -6.0f;
-		if (cameraZ > 6.0f)
-			cameraZ = 6.0f;
-
-		view = glm::lookAt(
-			glm::vec3(cameraX, cameraY + 1.85f, cameraZ),
-			glm::vec3(cameraX, cameraY + 1.85f, cameraZ - 3.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)
-		);
+		// Update the view for the next frame
+		glm::mat4 view = p.GetViewMatrix();
 		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 	}
 
