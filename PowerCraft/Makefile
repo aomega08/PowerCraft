@@ -2,11 +2,11 @@ SRC := $(shell find . -name "*.cpp")
 OBJS := $(SRC:.cpp=.o)
 
 TOOLCHAIN := $(HOME)/.clibs
-INCLUDES := $(TOOLCHAIN)/includes
+INCLUDES := $(TOOLCHAIN)/includes -I. $(shell packer includes)
 LIBS := $(TOOLCHAIN)/lib
 
 CXXFLAGS := -include-pch stdafx.h.pch -I$(INCLUDES) -Wall -std=c++11 -c
-LINKFLAGS := -L$(LIBS) -lglfw3 -lGLEW -lSOIL
+LINKFLAGS := $(shell packer libraries) -lglfw3 -lGLEW -lSOIL
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
