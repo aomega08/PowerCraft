@@ -1,0 +1,5 @@
+pack 'glew', '2.0.0'
+pack 'glfw', '3.2.1'
+pack 'soil', '0.0.0'
+pack 'glm', '0.9.8'
+
