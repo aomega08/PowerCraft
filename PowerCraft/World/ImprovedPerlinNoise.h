@@ -7,7 +7,10 @@ public:
     ImprovedPerlinNoise();
     ImprovedPerlinNoise(Random random);
 
-    double lerp(double t, double a, double b);
+    inline double lerp(double t, double a, double b) {
+        return a + t * (b - a);
+    }
+
     double grad(int t, double x, double y, double z);
 
     void populateNoiseArray(double *noiseArray, double xOffset, double yOffset, double zOffset, int xSize, int ySize, int zSize, double xScale, double yScale, double zScale, double noiseScale);
@@ -23,7 +26,12 @@ private:
     void fill3D(double *noiseArray, double xOffset, double yOffset, double zOffset, int xSize, int ySize, int zSize,
                double xScale, double yScale, double zScale, double noiseScale);
 
-    double perlinFade(double v) const;
+    inline double perlinFade(double v) const {
+        // 6v^5 - 15v^4 + 10v^3
+        return v * v * v * (v * (v * 6.0 - 15.0) + 10.0);
+    }
 
-    double perlin(double xFactor, double zFactor, double yFactor);
+    double perlin(int X, double xFactor, double u,
+                  int Y, double yFactor, double v,
+                  int Z, double zFactor, double w);
 };
